@@ -17,7 +17,7 @@ signal = ifft(signal);
 
 % append the cyclic prefix
 cyclic_prefix = signal(length(signal)-16:length(signal));
-appended_signal = [signal(1:length(header));cyclic_prefix;signal(length(header)+1:length(signal))];
+appended_signal = [signal(1:length(header));cyclic_prefix;signal(length(header)+1:length(signal))]
 
 % transmit the information through the ESRPs by creating file it can parse,
 % in this case a .dat file

@@ -13,6 +13,7 @@
 
 % find start index using the cox_scmidl algorithm to detect start of symbol 
 % here we assume that we are within 20 samples of the actual start point
+function y_corrected = correct_cfo_schmidl_cox(y)
 start_idx = find_start_point_cox_schmidl(y, 20);
 
 % this is the packet
@@ -27,4 +28,5 @@ avg_freq_error = avg_freq_error/64;
 
 % correct the frequency offset using estimated CFO
 y_corrected = y_frame.*(exp(-1i*avg_freq_error*[1:length(y_frame)]'));
+end
 

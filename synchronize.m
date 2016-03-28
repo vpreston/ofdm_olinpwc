@@ -1,14 +1,11 @@
-function h = channel_estimate(signal,known)
-    symbols = signal((64*3+16):end)
-    y = fft(symbols)
-    x = fft(known)
-    h = y./x
+function process_signal(y)
+    load('known_symbols.mat')
+    signal = correct_cfo_schmidl_cox(y)
+    h = channel_estimate(signal(training_start:data_start),leading_signal)
+    data = signal(data_start:end)
+    f_data = fft(data)
+    corrected_data = f_data*h
 end
 
-function breaks = separate_parts(signal)
-    indices = zeroes(4)
-    signal_end = signal(64*3+16:);
-    breaks = 1
-end
-    
+
 
