@@ -1,6 +1,0 @@
-function res = create_vector()
-    signal = round(rand(1,64));
-    signal(signal<.5)= -1;
-    signal = repmat(header, [1 3]);
-    res = header;
-end

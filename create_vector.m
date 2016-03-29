@@ -1,4 +1,4 @@
-function res = create_vector()
-    signal = 2*round(rand(64,1)) - 1; 
+function res = create_vector(l)
+    signal = 2*round(rand(l,1)) - 1; 
     res = signal;
 end
