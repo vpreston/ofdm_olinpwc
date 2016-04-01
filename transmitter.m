@@ -29,6 +29,8 @@ for i = 1:15
     final_signal = [final_signal;true_data];
 end
 
+final_signal = fft(final_signal);
+
 % transmit the information through the ESRPs by creating file it can parse,
 % in this case a .dat file
 save('transmitter.dat', 'final_signal')
