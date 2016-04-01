@@ -10,14 +10,13 @@
 % simply adding data
 header = create_header;
 data = create_vector(64);
-signal = [header; data];
 
 % take the IFFT
-signal = ifft(signal);
+signal = ifft(data);
 
 % append the cyclic prefix
 cyclic_prefix = signal(length(signal)-16:length(signal));
-appended_signal = [signal(1:length(header));cyclic_prefix;signal(length(header)+1:length(signal))];
+appended_signal = [header;cyclic_prefix;signal;];
 
 % add the symbol payload of about 10-20 symbols (200 - 400 bits)
 random_data = create_vector(240);
