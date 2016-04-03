@@ -13,7 +13,7 @@ function receiver(y,data)
     
    % data = reshape(data(1:15*80),15,[]);
    %corrected_data = process_symbol(symbols(1:80),h)
-   corrected_data = process_symbol(signal(training_start: training_start+16),h)
+   corrected_data = process_symbol(signal(training_start: training_start+79),h')
    corrected_data = corrected_data/max(corrected_data);
    plot(real(corrected_data),'b-')
 end
