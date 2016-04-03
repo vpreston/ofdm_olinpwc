@@ -12,10 +12,11 @@ header = create_header;
 data = create_vector(64);
 
 % take the IFFT
+header = ifft(header)*64;
 signal = ifft(data)*64;
 
 % append the cyclic prefix
-cyclic_prefix = signal(length(signal)-15:length(signal));
+cyclic_prefix = signal(end-14:end);
 appended_signal = [header;cyclic_prefix;signal];
 
 final_signal = [appended_signal];
@@ -24,7 +25,7 @@ final_signal = [appended_signal];
 for i = 1:15
     random_data = create_vector(64);
     random_signal = ifft(random_data)*64;
-    random_cp = random_signal(length(random_signal)-15:length(random_signal));
+    random_cp = random_signal(end-14:end);
     true_data = [random_cp;random_signal];
     final_signal = [final_signal;true_data];
 end
