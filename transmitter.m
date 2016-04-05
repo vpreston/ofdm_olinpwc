@@ -9,14 +9,22 @@
 % establish your data vector by placing the heading in the front, then
 % simply adding data
 header = create_header;
-data = create_vector(64);%this is in frequency
+% data = create_vector(64);%this is in frequency
+appended_signal = [header];
+
+for i=1:3
+   data = create_vector(64);
+   signal = ifft(data)*64;
+   cyclic_prefix = signal(end-15:end);
+   appended_signal = [appended_signal; cyclic_prefix; signal];
+end
 
 % take the IFFT
-signal = ifft(data)*64;%put it in time
+% signal = ifft(data)*64;%put it in time
 
 % append the cyclic prefix
-cyclic_prefix = signal(end-15:end);
-appended_signal = [header;cyclic_prefix;signal];
+% cyclic_prefix = signal(end-15:end);
+% appended_signal = [header;cyclic_prefix;signal];
 
 final_signal = [appended_signal];
 
