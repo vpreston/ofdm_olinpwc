@@ -11,12 +11,14 @@
 header = create_header;
 % data = create_vector(64);%this is in frequency
 appended_signal = [header];
+known_signal = [];
 
 for i=1:3
    data = create_vector(64);
    signal = ifft(data)*64;
    cyclic_prefix = signal(end-15:end);
-   appended_signal = [appended_signal; cyclic_prefix; signal];
+   known_signal = [known_signal; cyclic_prefix; signal];
+   appended_signal = [appended_signal; known_signal];
 end
 
 % take the IFFT
