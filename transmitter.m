@@ -9,28 +9,25 @@
 % establish your data vector by placing the heading in the front, then
 % simply adding data
 header = create_header;
-data = create_vector(64);
+data = create_vector(64);%this is in frequency
 
 % take the IFFT
-header = ifft(header)*64;
-signal = ifft(data)*64;
+signal = ifft(data)*64;%put it in time
 
 % append the cyclic prefix
-cyclic_prefix = signal(end-14:end);
+cyclic_prefix = signal(end-15:end);
 appended_signal = [header;cyclic_prefix;signal];
 
 final_signal = [appended_signal];
 
 % add the symbol payload of about 10-20 symbols (200 - 400 bits)
 for i = 1:15
-    random_data = create_vector(64);
+    random_data = create_vector(64);%create data in frequency
     random_signal = ifft(random_data)*64;
-    random_cp = random_signal(end-14:end);
+    random_cp = random_signal(end-15:end);
     true_data = [random_cp;random_signal];
     final_signal = [final_signal;true_data];
 end
-
-final_signal = fft(final_signal);
 
 % transmit the information through the ESRPs by creating file it can parse,
 % in this case a .dat file

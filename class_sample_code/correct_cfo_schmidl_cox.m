@@ -14,7 +14,8 @@
 % find start index using the cox_scmidl algorithm to detect start of symbol 
 % here we assume that we are within 20 samples of the actual start point
 function y_corrected = correct_cfo_schmidl_cox(y)
-start_idx = find_start_point_cox_schmidl(y, 20);
+start_idx = find_start_point_cox_schmidl(y, 20)
+disp(start_idx)
 
 % this is the packet
 y_frame = y(start_idx:end);
