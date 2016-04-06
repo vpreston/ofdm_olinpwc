@@ -9,13 +9,13 @@
 % establish your data vector by placing the heading in the front, then
 % simply adding data
 header = create_header;
-header = ifft(header)*64;
+% header = ifft(header)*64;
 % data = create_vector(64);
 
 known_signal = [header];
-known = [header];
+known = [];
 
-for j = 1:3
+for j = 1:10
     data  = create_vector(64);
     signal = ifft(data)*64;
     cyclic_prefix = signal(end-15:end);
@@ -34,7 +34,7 @@ for i = 1:15
     final_signal = [final_signal;true_data];
 end
 
-final_signal = fft(final_signal)
+% final_signal = fft(final_signal)
 
 % transmit the information through the ESRPs by creating file it can parse,
 % in this case a .dat file
