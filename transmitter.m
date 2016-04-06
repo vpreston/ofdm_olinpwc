@@ -15,7 +15,7 @@ header = create_header;
 known_signal = [header];
 known = [];
 
-for j = 1:10
+for j = 1:20
     data  = create_vector(64);
     signal = ifft(data)*64;
     cyclic_prefix = signal(end-15:end);
