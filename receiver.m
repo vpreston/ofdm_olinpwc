@@ -1,33 +1,29 @@
 function receiver(y,known_signal)
+    %create important indices
     training_start = 64*2 + 1;
-    data_start = training_start  + 80*30;
+    data_start = training_start  + 80*1;
     h = [];
     
+    %find the start of the data and do a frequency correction
     signal = correct_cfo_schmidl_cox(y(50:end));
-    %plot(real(signal),'r-')
     known = known_signal;
     
+    %perform the channel estimation
     for i=1:20
        h = [h,channel_estimate(signal(training_start+80*(i-1):training_start+79+80*(i-1)),known(1+80*(i-1):80+80*(i-1)))];
     end
     
-    h1 = channel_estimate(signal(training_start:training_start+79),known(1:80));
-    h2 = channel_estimate(signal(training_start+80:training_start+(80+79)),known(81:(81+79)));
-    h3 = channel_estimate(signal(training_start+(80+80):training_start+(80+80+79)),known((81+79+1):(81+79+1+79)));
-    
-    hs = cat(2,h1,h2,h3);
-%     size(hs)
-    
     h = mean(h,2);
-   % plot(abs(h),'r-')
+
+    %process the symbols
     symbols = signal(data_start:end);
-    
-   %symbol_table = reshape(symbols(1:(15*80)),[80,15])
-   
    corrected_data = process_symbol(symbols(1:80),h);
-%    corrected_data = process_symbol(signal(training_start: training_start+79),h)
     
+   %plot everything
+   hold on
    plot(real(corrected_data),'r-')
+   plot(real(known(81+16:(81+79))),'b-')
+   legend('Recovered Signal','Transmitted Signal')
 end
 
 

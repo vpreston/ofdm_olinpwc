@@ -6,15 +6,14 @@
 % random signal vector.
 
 
-% establish your data vector by placing the heading in the front, then
-% simply adding data
+% establish the header which will be in the time domain
 header = create_header;
-% header = ifft(header)*64;
-% data = create_vector(64);
 
+% make sure to save the signals for use by the receiver
 known_signal = [header];
 known = [];
 
+% create the known data, 20 symbols
 for j = 1:20
     data  = create_vector(64);
     signal = ifft(data)*64;
@@ -25,7 +24,7 @@ end
 
 final_signal = [known_signal];
 
-% add the symbol payload of about 10-20 symbols (200 - 400 bits)
+% add the symbol payload of between 10-20 symbols
 for i = 1:15
     random_data = create_vector(64);
     random_signal = ifft(random_data)*64;
@@ -34,8 +33,6 @@ for i = 1:15
     final_signal = [final_signal;true_data];
 end
 
-% final_signal = fft(final_signal)
-
-% transmit the information through the ESRPs by creating file it can parse,
+% transmit the information through the USRPs by creating file it can parse,
 % in this case a .dat file
 save('transmitter.dat', 'final_signal')
